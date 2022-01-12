@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/AkshithaReddy1899/To-do-list-with-Webpack/issues"
   },
-  "homepage": "https://github.com/AkshithaReddy1899/To-do-list-with-Webpack#readme"
+  "homepage": "https://github.com/AkshithaReddy1899/To-do-list-with-Webpack#readme",
+  "devDependencies": {
+    "webpack": "^5.66.0",
+    "webpack-cli": "^4.9.1"
+  }
 }
