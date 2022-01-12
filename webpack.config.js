@@ -19,4 +19,15 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     clean: true,
   },
+
+  watch: true,
+
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
+    ],
+  }
 }
