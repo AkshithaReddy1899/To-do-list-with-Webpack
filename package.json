@@ -1,0 +1,20 @@
+{
+  "name": "to-do-list-with-webpack",
+  "version": "1.0.0",
+  "description": "Module 2 week 2 project 2",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AkshithaReddy1899/To-do-list-with-Webpack.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AkshithaReddy1899/To-do-list-with-Webpack/issues"
+  },
+  "homepage": "https://github.com/AkshithaReddy1899/To-do-list-with-Webpack#readme"
+}
