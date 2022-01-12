@@ -10,14 +10,14 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background:lightyellow;
+  background: lightyellow;
   font-family: monospace;
 }
 
 main {
   background: cornsilk;
   padding: 50px;
-  box-shadow: 5px 5px 15px 10px blanchedalmod;
+  box-shadow: 10px 10px 10px blanchedalmond;
 }
 
 #input-task {
