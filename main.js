@@ -7,13 +7,13 @@
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "taskArr": () => (/* binding */ taskArr)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 const taskArr = [
-  { description: 'task 1', index: 1, completed: false }, { description: 'task 2', index: 1, completed: false }, { description: 'task 3', index: 1, completed: false }, 
+  { description: 'task 1', index: 1, completed: false }, { description: 'task 2', index: 1, completed: false }, { description: 'task 3', index: 1, completed: false },
 ];
 
-
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (taskArr);
 
 /***/ }),
 /* 2 */
@@ -364,7 +364,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "* {\r\n  box-sizing: border-box;\r\n  margin: 0;\r\n  padding: 0;\r\n}\r\n\r\nbody {\r\n  width: 100vw;\r\n  height: 100vh;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  background:lightyellow;\r\n  font-family: monospace;\r\n}\r\n\r\nmain {\r\n  background: cornsilk;\r\n}\r\n\r\nli {\r\n  list-style: none;\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  padding: 20px;\r\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "* {\r\n  box-sizing: border-box;\r\n  margin: 0;\r\n  padding: 0;\r\n}\r\n\r\nbody {\r\n  width: 100vw;\r\n  height: 100vh;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  background:lightyellow;\r\n  font-family: monospace;\r\n}\r\n\r\nmain {\r\n  background: cornsilk;\r\n  padding: 50px;\r\n  box-shadow: 5px 5px 15px 10px blanchedalmo\r\n}\r\n\r\ninput {\r\n  padding: 5px;\r\n  background: blanchedalmond;\r\n  margin: 5px auto;\r\n  border: none;\r\n}\r\n\r\nli {\r\n  list-style: none;\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  padding: 20px;\r\n}\r\n\r\nli button {\r\n  width: 2px;\r\n  height: 10px;\r\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -574,7 +574,7 @@ const displayList = (item) => {
   </li>`;
 };
 
-_module_task_js__WEBPACK_IMPORTED_MODULE_0__.taskArr.forEach((item) => {
+_module_task_js__WEBPACK_IMPORTED_MODULE_0__["default"].forEach((item) => {
   displayList(item);
 });
 })();
