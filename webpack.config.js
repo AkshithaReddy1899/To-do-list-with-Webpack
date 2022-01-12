@@ -1,27 +1,22 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  mode: 'development',
-  entry: {
-    index: './src/index.js',
+  mode: 'none',
+  entry: './src/index.js',
+  devServer: {
+    static: './dist',
   },
-
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'ToDoList with webpack',
       template: './src/index.html',
     }),
   ],
-
   output: {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
     clean: true,
   },
-
-  watch: true,
-
   module: {
     rules: [
       {
