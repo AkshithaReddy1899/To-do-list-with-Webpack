@@ -4,13 +4,13 @@ const path = require('path');
 module.exports = {
   mode: 'development',
   entry: {
-    index: './src/index.js'
+    index: './src/index.js',
   },
 
   plugins: [
     new HtmlWebpackPlugin({
       title: 'ToDoList with webpack',
-      template: './src/index.html'
+      template: './src/index.html',
     }),
   ],
 
@@ -26,8 +26,8 @@ module.exports = {
     rules: [
       {
         test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
+        use: ['style-loader', 'css-loader'],
       },
     ],
-  }
-}
+  },
+};
