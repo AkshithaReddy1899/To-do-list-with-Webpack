@@ -46,8 +46,12 @@ li {
 }
 
 li button {
-  width: 2px;
-  height: 10px;
+  background: transparent;
+  border: none;
+  outline: none;
+  border: 1px solid red;
+  width: 20px;
+  height: 20px;
 }
 
 #clear {
@@ -58,3 +62,13 @@ li button {
   font-size: 16px;
   font-weight: bold;
 }
+
+.li-btn {
+  border: 2px solid blue;
+}
+
+#default-list {
+  display: block;
+}
+
+/* <i class="fas fa-trash-alt"></i>*/
