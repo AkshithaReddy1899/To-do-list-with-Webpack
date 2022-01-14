@@ -22,7 +22,7 @@ class Crud {
   };
 
   getBooks() {
-    if(localStorage.getItem('TaskList') === null) {
+    if(localStorage.getItem('TaskList') === null || localStorage.getItem('TaskList') === '') {
       const defaultParent = document.getElementById('default-list');
       defaultParent.style.display = 'block';
       defaultParent.innerHTML = `<li><p class="task-description">${_default_js__WEBPACK_IMPORTED_MODULE_0__["default"].description}</p></li>`;
@@ -32,29 +32,81 @@ class Crud {
     }
   };
 
-  deleteFunction() {
-    console.log("HI")
+  displayList(item) {
+    const listLi = document.createElement('li');
+    listLi.id = `${item.index}`;
+
+    const inputCheck = document.createElement('input');
+    inputCheck.type = 'checkbox';
+
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.id = "input-description";
+    input.className = 'input-description';
+    input.disabled = true;
+    input.value = `${item.description}`;
+
+    const button = document.createElement('button');
+    button.className = 'editBtn';
+    button.type = "button";
+
+    const i = document.createElement('i');
+    i.className = 'fa';
+    i.classList.add('fa-ellipsis-v')
+
+    list.appendChild(listLi);
+
+    listLi.appendChild(inputCheck);
+    listLi.appendChild(input);
+    listLi.appendChild(button);
+
+    button.appendChild(i);
+
+    button.addEventListener('click', ()=>{
+      if(i.classList.contains('fa-ellipsis-v')){
+        i.classList.add('fa-trash');
+        i.classList.remove('fa-ellipsis-v');
+        this.edit(input, input.value);
+      }else if(i.classList.contains('fa-trash')){
+        i.classList.add('fa-ellipsis-v');
+        i.classList.remove('fa-trash');
+        this.deleteFunction(listLi, input.value);
+      }
+    });
   }
 
-  removeBtn() {
-    document.querySelector('.li-btn').addEventListener('click', () =>{
-      alert("HI");
+  edit(input, name) {
+    console.log(input);
+    input.disabled = false;
+    const i = document.querySelector('i');
+    input.addEventListener('keydown', (event) => {
+      if(event.key === 'Enter') {
+        input.disabled = true;
+        const parent = input.parentNode;
+        console.log(parent);
+        console.log(parent.input.value);
+        const indexOf = this.arr[parent];
+        console.log("OM")
+        console.log(indexOf.input);
+        /*indexOf.description = input.value;*/
+        i.classList.add('fa-ellipsis-v');
+        i.classList.remove('fa-trash');
+        this.UpdateLocalStorage();
+        event.preventDefault();
+      }
     })
   }
 
-  displayList(item) {
-    list.innerHTML += `<li>
-    <div class="task-container">
-    <input type="checkbox">&nbsp;
-    <p class="task-description">${item.description}</p></div>
-    <div class="actions">
-    <button type="button" class="li-btn"><i class="fa"></i></button>
-    </div>
-    </li>`;
-  };
-  
+  deleteFunction(list, name) {
+    list.remove();
+    const index = this.arr[list.id];
+    this.arr.splice(index, 1);
+    this.UpdateLocalStorage();
+  }
+
   addTask() {
     const taskDescription = document.getElementById('input-task').value;
+
     const error = document.getElementById('error');
     
     if(taskDescription === '') {
@@ -62,23 +114,19 @@ class Crud {
     }else {
       document.getElementById('default-list').style.display = 'none';
       error.textContent = '';
+
       const taskObject  = {
-        index: this.arr.id,
+        index: this.arr.length+1,
         description: taskDescription,
         completed: true
       };
-
+      
       this.arr.push(taskObject);
       this.UpdateLocalStorage();
       this.displayList(taskObject);
     }
-    _default_js__WEBPACK_IMPORTED_MODULE_0__["default"].description = '';
-  };
+  }
 }
-
-const crud = new Crud();
-
-crud.displayList();
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Crud);
 
@@ -639,32 +687,121 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _module_render_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var _module_render__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
 
 
 
-const list = document.getElementById('list');
 
-const crud = new _module_render_js__WEBPACK_IMPORTED_MODULE_0__["default"]();
+const crud = new _module_render__WEBPACK_IMPORTED_MODULE_0__["default"]();
 
+window.onload = () =>{
   crud.getBooks();
   crud.arr.forEach((item) => {
-  crud.displayList(item);
-  });
+    crud.displayList(item);
+  })
+}
 
-const task = document.querySelector('task-description');
-const form = document.getElementById('form');
 
-const input = document.getElementById('input-task')
-input.addEventListener('keydown', (event) => {
-  if(event.key === 'Enter') {
-    console.log("OM");
-    crud.addTask();
-    event.preventDefault();
-    input.value = '';
-  };
-});
+const list = document.getElementById('list');
+
+
+const input = document.getElementById('input-task');
+
+    input.addEventListener('keydown', (event) => {
+      if(event.key === 'Enter') {
+        crud.addTask();
+        event.preventDefault(); 
+        input.value = '';
+      }  
+    })
+
+
+/*
+if(window.localStorage.getItem("todos") == undefined){
+     var todos = [];
+     window.localStorage.setItem("todos", JSON.stringify(todos));
+}
+
+var todosEX = window.localStorage.getItem("todos");
+var todos = JSON.parse(todosEX);
+
+
+class item{
+	constructor(name){
+		this.createItem(name);
+	}
+    createItem(name){
+    	var itemBox = document.createElement('div');
+        itemBox.classList.add('item');
+
+    	var input = document.createElement('input');
+    	input.type = "text";
+    	input.disabled = true;
+    	input.value = name;
+    	input.classList.add('item_input');
+
+    	var edit = document.createElement('button');
+    	edit.classList.add('edit');
+    	edit.innerHTML = "EDIT";
+    	edit.addEventListener('click', () => this.edit(input, name));
+
+    	var remove = document.createElement('button');
+    	remove.classList.add('remove');
+    	remove.innerHTML = "REMOVE";
+    	remove.addEventListener('click', () => this.remove(itemBox, name));
+
+    	container.appendChild(itemBox);
+
+        itemBox.appendChild(input);
+        itemBox.appendChild(edit);
+        itemBox.appendChild(remove);
+
+    }
+
+    edit(input, name){
+        if(input.disabled == true){
+           input.disabled = !input.disabled;
+        }
+    	else{
+            input.disabled = !input.disabled;
+            let indexof = todos.indexOf(name);
+            todos[indexof] = input.value;
+            window.localStorage.setItem("todos", JSON.stringify(todos));
+        }
+    }
+
+    remove(itemBox, name){
+        itemBox.parentNode.removeChild(itemBox);
+        let index = todos.indexOf(name);
+        todos.splice(index, 1);
+        window.localStorage.setItem("todos", JSON.stringify(todos));
+    }
+}
+
+add.addEventListener('click', check);
+window.addEventListener('keydown', (e) => {
+	if(e.which == 13){
+		check();
+	}
+})
+
+function check(){
+	if(inputValue.value != ""){
+		new item(inputValue.value);
+        todos.push(inputValue.value);
+        window.localStorage.setItem("todos", JSON.stringify(todos));
+		inputValue.value = "";
+	}
+}
+
+
+for (var v = 0 ; v < todos.length ; v++){
+    new item(todos[v]);
+}
+
+
+new item("sport");*/
 })();
 
 /******/ })()

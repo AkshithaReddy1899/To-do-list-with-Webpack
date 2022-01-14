@@ -1,50 +1,28 @@
-import Crud from './module/render.js';
+import Crud from './module/render';
 import './style.css';
 
-const list = document.getElementById('list');
 
 const crud = new Crud();
 
 window.onload = () =>{
-
-  () => {
-    setTimeout('location.reload(true);', 50000);
-    console.log('realoas')
-  }
   crud.getBooks();
+  crud.UpdateLocalStorage();
+  crud.arr.sort((a, b) => a.index - b.index);
   crud.arr.forEach((item) => {
-  crud.displayList(item);
-  document.querySelectorAll('i').forEach((item) =>{
-    
-    item.addEventListener('click', () => {
-      if(item.classList.contains('fa-ellipsis-v')){
-        item.classList.add('fa-trash');
-        item.classList.remove('fa-ellipsis-v');
-        console.log(item);
-        crud.edit()
-      }else if(item.classList.contains('fa-trash')){
-        item.classList.add('fa-ellipsis-v');
-        item.classList.remove('fa-trash');
-        const parent = item.parentNode;
-        console.log(parent);
-        crud.deleteFunction(parent);
-      }
-    })
-  });
-  });
+    crud.displayList(item);
+  })
 }
 
 
-const task = document.querySelector('task-description');
-const form = document.getElementById('form');
+const list = document.getElementById('list');
 
-const input = document.getElementById('input-task')
-input.addEventListener('keydown', (event) => {
-  if(event.key === 'Enter') {
-    crud.addTask();
-    input.value = '';
-  
-    event.preventDefault();
 
-  };
-});
+const input = document.getElementById('input-task');
+
+    input.addEventListener('keydown', (event) => {
+      if(event.key === 'Enter') {
+        crud.addTask();
+        event.preventDefault(); 
+        input.value = '';
+      }  
+    })

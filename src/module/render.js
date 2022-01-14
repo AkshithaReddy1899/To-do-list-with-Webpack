@@ -6,86 +6,105 @@ class Crud {
   }
 
   UpdateLocalStorage() {
-    localStorage.setItem('TaskList', JSON.stringify(this.arr));
-  };
-
-  getBooks() {
+  localStorage.setItem('TaskList', JSON.stringify(this.arr));
+  }
+  
+  getBooks () {    
     if(localStorage.getItem('TaskList') === null) {
-      const defaultParent = document.getElementById('default-list');
-      defaultParent.style.display = 'block';
-      defaultParent.innerHTML = `<li><p class="task-description">${defaultObject.description}</p></li>`;
+    const defaultParent = document.getElementById('default-list');
+    defaultParent.style.display = 'block';
+    defaultParent.innerHTML = `<li><p class="task-description">${defaultObject.description}</p></li>`;
     }else {
-      this.arr = JSON.parse(localStorage.getItem('TaskList'));
-      return this.arr;
+    this.arr = JSON.parse(localStorage.getItem('TaskList'));
+    return this.arr;
     }
-  };
+  }
+
 
   displayList(item) {
-    list.innerHTML += `<li id="${item.index}">
-    <div class="task-container">
-    <input type="checkbox">&nbsp;
-    <input type="text" class="task-description" value="${item.description}" readOnly>
-    </div>
-    <i class="fa fas fa-ellipsis-v"></i>
-    </div>
-    </li>`;/*
-    document.querySelector('.task-description').setAttribute('readOnly', 'readOnly');*/
-  }; 
+    const listLi = document.createElement('li');
+    listLi.id = `${item.index}`;
 
-  edit() {
-    const editInput = document.querySelectorAll('.task-description');
-    
-    editInput.forEach((item) =>{
-      item.readOnly = false;
-      console.log(item);
+    const inputCheck = document.createElement('input');
+    inputCheck.type = 'checkbox';
 
-    item.addEventListener('keydown', (event) => {
-        if(event.key === 'Enter') {
-          console.log('fd')
-          const i = document.querySelector('.fa');
-          i.classList.add('fa-ellipsis-v');
-          i.classList.remove('fa-trash');
-          event.preventDefault();
-          /*item.setAttribute('readonly', 'readonly');*/
-          item.readOnly = true;
-        }
-      })
-  })
-}
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.id = "input-description";
+    input.className = 'input-description';
+    input.disabled = true;
+    input.value = `${item.description}`;
 
+    const button = document.createElement('button');
+    button.className = 'editBtn';
+    button.type = "button";
 
-  deleteFunction(parent) {
-    console.log('delete')
-    const id = parent.id;
-    console.log(id);
-    console.log(this.arr)
-    this.arr = this.arr.filter(i => i.index !== id);
-    console.log(this.arr);
-  parent.remove();
-  }
+    const i = document.createElement('i');
+    i.className = 'fa';
+    i.classList.add('fa-ellipsis-v')
 
-  /* readOnly = false;
-    editInput.removeAttribute('readOnly');
-    editInput.addEventListener('keydown', (event) => {
-      if(event.key === 'Enter') {
-        console.log('fd')
-        const i = document.querySelector('.fa');
+    list.appendChild(listLi);
+
+    listLi.appendChild(inputCheck);
+    listLi.appendChild(input);
+    listLi.appendChild(button);
+
+    button.appendChild(i);
+
+    button.addEventListener('click', ()=>{
+      if(i.classList.contains('fa-ellipsis-v')){
+        i.classList.add('fa-trash');
+        i.classList.remove('fa-ellipsis-v');
+        this.edit(input, input.value);
+      }else if(i.classList.contains('fa-trash')){
         i.classList.add('fa-ellipsis-v');
         i.classList.remove('fa-trash');
-        event.preventDefault();
-        editInput.setAttribute('readonly', 'readonly');
-        editInput.readOnly = true;
-      */
-
-  delete() {
-
+        this.deleteFunction(listLi, input.value);
+      }
+    });
   }
 
-  /* fa-ellipsis-v
-  fa-trash*/
-  
+  edit(input, name) {
+    console.log(input)
+    input.disabled = false;
+    console.log(name);
+    const i = document.querySelector('i');
+    input.addEventListener('keydown', (event) => {
+      if(event.key === 'Enter') {
+        input.disabled = true;
+
+        const parent = input.parentNode.id;
+        console.log(parent);
+        const indexOf = this.arr[parent];
+        console.log(indexOf)
+        if(i.classList.contains('fa-trash')) {
+          i.classList.add('fa-ellipsis-v');
+          i.classList.remove('fa-trash');
+        }
+        indexOf.description = input.value;
+        this.UpdateLocalStorage();
+      }
+    })
+  }
+
+  deleteFunction(list) {
+    list.remove();
+    const index = this.arr[list.id];
+    this.arr.splice(index, 1);
+
+    this.arr = this.arr.map((t)=>{
+      if(t.index > index){
+        t.index -= 1;
+      }
+      return t;
+    })
+    
+    this.UpdateLocalStorage();
+  }
+
   addTask() {
     const taskDescription = document.getElementById('input-task').value;
+
     const error = document.getElementById('error');
     
     if(taskDescription === '') {
@@ -93,32 +112,18 @@ class Crud {
     }else {
       document.getElementById('default-list').style.display = 'none';
       error.textContent = '';
+
       const taskObject  = {
         index: this.arr.length,
         description: taskDescription,
         completed: true
       };
-
+      
       this.arr.push(taskObject);
       this.UpdateLocalStorage();
       this.displayList(taskObject);
-      document.querySelectorAll('i').forEach((item) =>{
-        item.addEventListener('click', () => {
-          if(item.classList.contains('fa-ellipsis-v')){
-            item.classList.add('fa-trash');
-            item.classList.remove('fa-ellipsis-v');
-            this.edit();
-          }else if(item.classList.contains('fa-trash')){
-            item.classList.add('fa-ellipsis-v');
-            item.classList.remove('fa-trash');
-          }
-          console.log(item.className);
-        })
-    });    
     }
-    defaultObject.description = '';
-  };
+  }
 }
-
 
 export default Crud;
