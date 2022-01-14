@@ -24,9 +24,9 @@ This project uses the following open source packages:
 
 To clone this repo: You need to have git installed in your system.
 
-git clone the repo in your terminal by: "gh repo clone AkshithaReddy1899/To-do-list-with-Webpack"
-
-cd into the folder
+- git clone the repo in your terminal by: `gh repo clone AkshithaReddy1899/To-do-list-with-Webpack`
+- navigate to 
+`cd into the folder`
 
 - run `npm run build` to build the webpack script
 - run `npm start` to run the webpack sever on your browser
