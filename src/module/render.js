@@ -20,30 +20,69 @@ class Crud {
     }
   };
 
-  deleteFunction() {
-    console.log("HIaesrdtfyg")
-  }
-
-  removeBtn() {
-    document.querySelector('.li-btn').addEventListener('click', () =>{
-      alert("HI");
-    })
-  }
-
   displayList(item) {
-    list.innerHTML += `<li>
+    list.innerHTML += `<li id="${item.index}">
     <div class="task-container">
     <input type="checkbox">&nbsp;
-    <p class="task-description">${item.description}</p>
+    <input type="text" class="task-description" value="${item.description}" readOnly>
     </div>
-    <i class="fa fas fa-trash"></i>
+    <i class="fa fas fa-ellipsis-v"></i>
     </div>
-    </li>`;
+    </li>`;/*
+    document.querySelector('.task-description').setAttribute('readOnly', 'readOnly');*/
+  }; 
 
-    list.querySelectorAll('i').forEach((item) =>{
-      item.addEventListener('click', this.deleteFunction())
-     })
-  };
+  edit() {
+    const editInput = document.querySelectorAll('.task-description');
+    
+    editInput.forEach((item) =>{
+      item.readOnly = false;
+      console.log(item);
+
+    item.addEventListener('keydown', (event) => {
+        if(event.key === 'Enter') {
+          console.log('fd')
+          const i = document.querySelector('.fa');
+          i.classList.add('fa-ellipsis-v');
+          i.classList.remove('fa-trash');
+          event.preventDefault();
+          /*item.setAttribute('readonly', 'readonly');*/
+          item.readOnly = true;
+        }
+      })
+  })
+}
+
+
+  deleteFunction(parent) {
+    console.log('delete')
+    const id = parent.id;
+    console.log(id);
+    console.log(this.arr)
+    this.arr = this.arr.filter(i => i.index !== id);
+    console.log(this.arr);
+  parent.remove();
+  }
+
+  /* readOnly = false;
+    editInput.removeAttribute('readOnly');
+    editInput.addEventListener('keydown', (event) => {
+      if(event.key === 'Enter') {
+        console.log('fd')
+        const i = document.querySelector('.fa');
+        i.classList.add('fa-ellipsis-v');
+        i.classList.remove('fa-trash');
+        event.preventDefault();
+        editInput.setAttribute('readonly', 'readonly');
+        editInput.readOnly = true;
+      */
+
+  delete() {
+
+  }
+
+  /* fa-ellipsis-v
+  fa-trash*/
   
   addTask() {
     const taskDescription = document.getElementById('input-task').value;
@@ -55,7 +94,7 @@ class Crud {
       document.getElementById('default-list').style.display = 'none';
       error.textContent = '';
       const taskObject  = {
-        index: this.arr.id,
+        index: this.arr.length,
         description: taskDescription,
         completed: true
       };
@@ -63,7 +102,19 @@ class Crud {
       this.arr.push(taskObject);
       this.UpdateLocalStorage();
       this.displayList(taskObject);
-      
+      document.querySelectorAll('i').forEach((item) =>{
+        item.addEventListener('click', () => {
+          if(item.classList.contains('fa-ellipsis-v')){
+            item.classList.add('fa-trash');
+            item.classList.remove('fa-ellipsis-v');
+            this.edit();
+          }else if(item.classList.contains('fa-trash')){
+            item.classList.add('fa-ellipsis-v');
+            item.classList.remove('fa-trash');
+          }
+          console.log(item.className);
+        })
+    });    
     }
     defaultObject.description = '';
   };
