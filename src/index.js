@@ -1,17 +1,23 @@
-import taskArr from './module/task.js';
+import Crud from './module/render';
 import './style.css';
 
-const list = document.getElementById('list');
+const crud = new Crud();
 
-const displayList = (item) => {
-  list.innerHTML += `<li>
-  <div class="task-container">
-  <input type="checkbox">&nbsp;
-  <p class="task-description">${item.description}</p></div>
-  <button type="button" class="li-btn"><span class="line"></span></button>
-  </li>`;
+window.onload = () => {
+  crud.getBooks();
+  crud.UpdateLocalStorage();
+  crud.arr.sort((a, b) => a.index - b.index);
+  crud.arr.forEach((item) => {
+    crud.displayList(item);
+  });
 };
 
-taskArr.forEach((item) => {
-  displayList(item);
+const input = document.getElementById('input-task');
+
+input.addEventListener('keydown', (event) => {
+  if (event.key === 'Enter') {
+    crud.addTask();
+    event.preventDefault();
+    input.value = '';
+  }
 });

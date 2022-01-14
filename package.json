@@ -10,15 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ahmedtaa/webpack.git"
+    "url": "git+thub.com/AkshithaReddy1899/To-do-list-with-Webpack"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ahmedtaa/webpack/issues"
+    "url": "https://github.com/AkshithaReddy1899"
   },
-  "homepage": "https://github.com/ahmedtaa/webpack#readme",
+  "homepage": "https://github.com/AkshithaReddy1899/To-do-list-with-Webpack",
   "devDependencies": {
     "babel-eslint": "^10.1.0",
     "css-loader": "^6.5.1",
@@ -29,9 +29,10 @@
     "style-loader": "^3.3.1",
     "webpack": "^5.65.0",
     "webpack-cli": "^4.9.1",
-    "webpack-dev-server": "^4.7.2"
+    "webpack-dev-server": "^4.7.3"
   },
   "dependencies": {
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "package.json": "^2.0.1"
   }
 }
