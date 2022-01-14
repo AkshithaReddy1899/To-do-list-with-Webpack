@@ -1,4 +1,4 @@
-import defaultObject from "./default.js";
+import defaultObject from './default.js';
 
 class Crud {
   constructor() {
@@ -6,22 +6,22 @@ class Crud {
   }
 
   UpdateLocalStorage() {
-  localStorage.setItem('TaskList', JSON.stringify(this.arr));
-  }
-  
-  getBooks () {    
-    if(localStorage.getItem('TaskList') === null) {
-    const defaultParent = document.getElementById('default-list');
-    defaultParent.style.display = 'block';
-    defaultParent.innerHTML = `<li><p class="task-description">${defaultObject.description}</p></li>`;
-    }else {
-    this.arr = JSON.parse(localStorage.getItem('TaskList'));
-    return this.arr;
-    }
+    localStorage.setItem('TaskList', JSON.stringify(this.arr));
   }
 
+  getBooks() {
+    if (localStorage.getItem('TaskList') === null) {
+      const defaultParent = document.getElementById('default-list');
+      defaultParent.style.display = 'block';
+      defaultParent.innerHTML = `<li><p class="task-description">${defaultObject.description}</p></li>`;
+    } else {
+      this.arr = JSON.parse(localStorage.getItem('TaskList'));
+    }
+    return this.arr;
+  }
 
   displayList(item) {
+    const list = document.getElementById('list');
     const listLi = document.createElement('li');
     listLi.id = `${item.index}`;
 
@@ -30,18 +30,18 @@ class Crud {
 
     const input = document.createElement('input');
     input.type = 'text';
-    input.id = "input-description";
+    input.id = 'input-description';
     input.className = 'input-description';
     input.disabled = true;
     input.value = `${item.description}`;
 
     const button = document.createElement('button');
     button.className = 'editBtn';
-    button.type = "button";
+    button.type = 'button';
 
     const i = document.createElement('i');
     i.className = 'fa';
-    i.classList.add('fa-ellipsis-v')
+    i.classList.add('fa-ellipsis-v');
 
     list.appendChild(listLi);
 
@@ -51,12 +51,12 @@ class Crud {
 
     button.appendChild(i);
 
-    button.addEventListener('click', ()=>{
-      if(i.classList.contains('fa-ellipsis-v')){
+    button.addEventListener('click', () => {
+      if (i.classList.contains('fa-ellipsis-v')) {
         i.classList.add('fa-trash');
         i.classList.remove('fa-ellipsis-v');
-        this.edit(input, input.value);
-      }else if(i.classList.contains('fa-trash')){
+        this.edit(input);
+      } else if (i.classList.contains('fa-trash')) {
         i.classList.add('fa-ellipsis-v');
         i.classList.remove('fa-trash');
         this.deleteFunction(listLi, input.value);
@@ -64,27 +64,23 @@ class Crud {
     });
   }
 
-  edit(input, name) {
-    console.log(input)
+  edit(input) {
     input.disabled = false;
-    console.log(name);
     const i = document.querySelector('i');
     input.addEventListener('keydown', (event) => {
-      if(event.key === 'Enter') {
+      if (event.key === 'Enter') {
         input.disabled = true;
 
         const parent = input.parentNode.id;
-        console.log(parent);
         const indexOf = this.arr[parent];
-        console.log(indexOf)
-        if(i.classList.contains('fa-trash')) {
+        if (i.classList.contains('fa-trash')) {
           i.classList.add('fa-ellipsis-v');
           i.classList.remove('fa-trash');
         }
         indexOf.description = input.value;
         this.UpdateLocalStorage();
       }
-    })
+    });
   }
 
   deleteFunction(list) {
@@ -92,13 +88,6 @@ class Crud {
     const index = this.arr[list.id];
     this.arr.splice(index, 1);
 
-    this.arr = this.arr.map((t)=>{
-      if(t.index > index){
-        t.index -= 1;
-      }
-      return t;
-    })
-    
     this.UpdateLocalStorage();
   }
 
@@ -106,19 +95,19 @@ class Crud {
     const taskDescription = document.getElementById('input-task').value;
 
     const error = document.getElementById('error');
-    
-    if(taskDescription === '') {
+
+    if (taskDescription === '') {
       error.textContent = 'Please Type in your task';
-    }else {
+    } else {
       document.getElementById('default-list').style.display = 'none';
       error.textContent = '';
 
-      const taskObject  = {
+      const taskObject = {
         index: this.arr.length,
         description: taskDescription,
-        completed: true
+        completed: true,
       };
-      
+
       this.arr.push(taskObject);
       this.UpdateLocalStorage();
       this.displayList(taskObject);
