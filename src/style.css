@@ -29,6 +29,18 @@ main {
   border: none;
 }
 
+.input-description {
+  text-decoration: none;
+}
+
+.completed {
+  text-decoration: line-through;
+}
+
+input:checked + .input-description {
+  text-decoration: line-through;
+}
+
 form {
   width: 320px;
 }
@@ -75,10 +87,6 @@ li input[type=text] {
   border: none;
   font-size: 16px;
   font-weight: bold;
-}
-
-.li-btn {
-  border: 2px solid blue;
 }
 
 #default-list {
