@@ -1,10 +1,7 @@
 import Crud from './module/render.js';
-import { checkBoxChecked } from './module/checkboxCheck.js';
-import defaultObject from './module/default.js';
 import './style.css';
 
 const crud = new Crud();
-let checkedArr = [];
 
 window.onload = () => {
   crud.getBooks();
@@ -12,11 +9,6 @@ window.onload = () => {
   crud.UpdateLocalStorage();
   crud.arr.forEach((item) => {
     crud.displayList(item);
-    if(item.completed) {
-    checkedArr.push(item);
-    console.log(checkedArr);
-    checkBoxChecked(checkedArr);
-    }
   });
 };
 
@@ -30,10 +22,10 @@ input.addEventListener('keydown', (event) => {
   }
 });
 
-document.getElementById('clear').addEventListener('click', () =>{
-  crud.arr = crud.arr.filter(item => item.completed === false);
+document.getElementById('clear').addEventListener('click', () => {
+  crud.arr = crud.arr.filter((item) => item.completed === false);
   crud.UpdateLocalStorage();
   document.getElementById('list').textContent = '';
   document.getElementById('list').style.display = 'block';
-  crud.arr.forEach(item => crud.displayList(item));
+  crud.arr.forEach((item) => crud.displayList(item));
 });

@@ -1,5 +1,5 @@
 import defaultObject from './default.js';
-import { updateStatus } from './interactive-list.js';
+import updateStatus from './interactive-list.js';
 
 class Crud {
   constructor() {
@@ -39,6 +39,11 @@ class Crud {
     input.disabled = true;
     input.value = `${item.description}`;
 
+    if (item.completed) {
+      input.style.textDecoration = 'line-through';
+      inputCheck.checked = true;
+    }
+
     const button = document.createElement('button');
     button.className = 'editBtn';
     button.type = 'button';
@@ -67,23 +72,21 @@ class Crud {
       }
     });
 
-    inputCheck.addEventListener('change', ()=>{
-      const id = inputCheck.parentNode
-      console.log(id);
-      if(inputCheck.checked) {
+    inputCheck.addEventListener('change', () => {
+      if (inputCheck.checked) {
         inputCheck.checked = true;
         input.style.textDecoration = 'line-through';
         input.classList.add('completed');
         updateStatus(item, true);
         this.UpdateLocalStorage();
-      }else{
+      } else {
         input.classList.remove('completed');
         inputCheck.checked = false;
         input.style.textDecoration = 'none';
         updateStatus(item, false);
         this.UpdateLocalStorage();
       }
-    })
+    });
   }
 
   edit(input) {
