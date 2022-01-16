@@ -1,4 +1,5 @@
 import defaultObject from './default.js';
+import updateStatus from './interactive-list.js';
 
 class Crud {
   constructor() {
@@ -27,6 +28,9 @@ class Crud {
 
     const inputCheck = document.createElement('input');
     inputCheck.type = 'checkbox';
+    inputCheck.checked = false;
+    inputCheck.id = 'inputCheck';
+    inputCheck.className = 'inputCheck';
 
     const input = document.createElement('input');
     input.type = 'text';
@@ -34,6 +38,11 @@ class Crud {
     input.className = 'input-description';
     input.disabled = true;
     input.value = `${item.description}`;
+
+    if (item.completed) {
+      input.style.textDecoration = 'line-through';
+      inputCheck.checked = true;
+    }
 
     const button = document.createElement('button');
     button.className = 'editBtn';
@@ -60,6 +69,22 @@ class Crud {
         i.classList.add('fa-ellipsis-v');
         i.classList.remove('fa-trash');
         this.deleteFunction(listLi, input.value);
+      }
+    });
+
+    inputCheck.addEventListener('change', () => {
+      if (inputCheck.checked) {
+        inputCheck.checked = true;
+        input.style.textDecoration = 'line-through';
+        input.classList.add('completed');
+        updateStatus(item, true);
+        this.UpdateLocalStorage();
+      } else {
+        input.classList.remove('completed');
+        inputCheck.checked = false;
+        input.style.textDecoration = 'none';
+        updateStatus(item, false);
+        this.UpdateLocalStorage();
       }
     });
   }
@@ -93,7 +118,6 @@ class Crud {
 
   addTask() {
     const taskDescription = document.getElementById('input-task').value;
-
     const error = document.getElementById('error');
 
     if (taskDescription === '') {
@@ -105,7 +129,7 @@ class Crud {
       const taskObject = {
         index: this.arr.length,
         description: taskDescription,
-        completed: true,
+        completed: false,
       };
 
       this.arr.push(taskObject);
