@@ -22,7 +22,7 @@ This project uses the following open source packages:
 
 # Deployed on
 
--Netlify
+- Netlify
 
 # Author
 
