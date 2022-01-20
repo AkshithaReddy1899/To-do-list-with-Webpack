@@ -20,7 +20,7 @@ This project uses the following open source packages:
 - node
 - Weback
 
-# Deployed on
+# Deployed using
 
 - Netlify
 
