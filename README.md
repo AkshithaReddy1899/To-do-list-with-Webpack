@@ -3,6 +3,11 @@
 
 This branch is the initial stage of the to do list project where i have build the basic structure for it using webpack, modular javascript, dynamic html.
 
+# Live link
+
+[live](https://stoic-varahamihira-e12175.netlify.app/)
+
+
 # Screenshot
 
 ![Opera Snapshot_2022-01-12_212903_localhost](https://user-images.githubusercontent.com/70577783/149175717-d90d881b-b249-44e1-a0fe-1f984228e8e0.png)
@@ -14,6 +19,10 @@ This project uses the following open source packages:
 - CSS
 - node
 - Weback
+
+# Deployed on
+
+-Netlify
 
 # Author
 
